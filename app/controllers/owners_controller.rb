@@ -1,10 +1,13 @@
 class OwnersController < ApplicationController
         def index
-          render json: Owner.all, status: :ok
+          owner = Owner.all
+          render json: owner, include:[:reviews],  status: :ok
+
         end
     
         def show
-            render json: Owner.find(params[:id]), status: :ok
+            owner = Owner.find(params[:id])
+            render json: owner, include:[:reviews], status: :ok
         end
     
         # def welcome
