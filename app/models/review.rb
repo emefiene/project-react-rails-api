@@ -1,4 +1,4 @@
 class Review < ApplicationRecord
-  belongs_to :owner
+  belongs_to :production
   belongs_to :user
 end

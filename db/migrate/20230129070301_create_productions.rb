@@ -1,6 +1,6 @@
-class CreateOwners < ActiveRecord::Migration[6.1]
+class CreateProductions < ActiveRecord::Migration[6.1]
   def change
-    create_table :owners do |t|
+    create_table :productions do |t|
       t.string :description
       t.string :image
       t.integer :price
@@ -11,3 +11,4 @@ class CreateOwners < ActiveRecord::Migration[6.1]
     end
   end
 end
+

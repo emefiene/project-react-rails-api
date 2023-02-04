@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_03_055441) do
+ActiveRecord::Schema.define(version: 2023_02_03_133455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,13 +19,11 @@ ActiveRecord::Schema.define(version: 2023_02_03_055441) do
     t.string "name"
     t.string "email"
     t.string "password"
-    t.bigint "owner_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["owner_id"], name: "index_members_on_owner_id"
   end
 
-  create_table "owners", force: :cascade do |t|
+  create_table "productions", force: :cascade do |t|
     t.string "description"
     t.string "image"
     t.integer "price"
@@ -33,16 +31,18 @@ ActiveRecord::Schema.define(version: 2023_02_03_055441) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "member_id", null: false
+    t.index ["member_id"], name: "index_productions_on_member_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.string "comments"
     t.integer "time"
-    t.bigint "owner_id", null: false
+    t.bigint "production_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["owner_id"], name: "index_reviews_on_owner_id"
+    t.index ["production_id"], name: "index_reviews_on_production_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2023_02_03_055441) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "members", "owners"
-  add_foreign_key "reviews", "owners"
+  add_foreign_key "productions", "members"
+  add_foreign_key "reviews", "productions"
   add_foreign_key "reviews", "users"
 end

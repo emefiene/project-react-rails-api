@@ -1,5 +1,5 @@
 class User < ApplicationRecord
     has_many :reviews
-    has_many :owners, through: :reviews
+    has_many :productions, through: :reviews
 
 end

@@ -1,3 +1,3 @@
 class Member < ApplicationRecord
-  belongs_to :owner
+  has_many :productions
 end
