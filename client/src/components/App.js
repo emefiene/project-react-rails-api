@@ -9,11 +9,23 @@ import Navbar from "./Navbar";
 function App() {
 
   const [data, setData] = useState([])
+  const [reviewData, setReviewData] = useState([])
+
    useEffect( () => {
-     fetch('/owners')
+     fetch('/productions')
      .then(res => res.json())
-     .then(data => setData(data))
+     .then(data => {
+       setData(data)
+     })
    }, [])
+
+   useEffect( () => {
+    fetch('/users')
+    .then(res => res.json())
+    .then(data => {
+      setReviewData(data)
+    })
+  }, [])
 
   return (
     <div>
@@ -25,7 +37,7 @@ function App() {
        <ItemContainer data={data} />
       </Route>
       <Route exact path="/reviews/:id">
-       <ReviewProducts data={data} />
+       <ReviewProducts data={data} reviewData={reviewData} />
       </Route>
       </Switch>
       

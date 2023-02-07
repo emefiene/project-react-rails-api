@@ -1,5 +1,5 @@
 class ProductionSerializer < ActiveModel::Serializer
-  attributes :id, :description, :image, :price, :rating, :quantity
+  attributes :id, :description, :image, :price, :rating, :quantity, :member_id
     has_one :member
     has_many :reviews
     has_many :users, through: :reviews
