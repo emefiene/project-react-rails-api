@@ -19,13 +19,13 @@ class UsersController < ApplicationController
       # end
   
       def create
-         user = User.create(params_user)
+         user = User.create!(params_user)
          render json: user, status: :ok
       end
   
       def update
          user = User.find(params[:id])
-         user.update(params_user)
+         user.update!(params_user)
          render json: user, status: :accepted
       end
   

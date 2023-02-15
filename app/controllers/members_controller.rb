@@ -19,13 +19,13 @@ class MembersController < ApplicationController
       # end
   
       def create
-         member = Member.create(params_member)
+         member = Member.create!(params_member)
          render json: member, status: :ok
       end
   
       def update
          member = Member.find(params[:id])
-         member.update(params_member)
+         member.update!(params_member)
          render json: member, status: :accepted
       end
   

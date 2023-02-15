@@ -19,13 +19,13 @@ class ReviewsController < ApplicationController
       # end
   
       def create
-         review = Review.create(params_review)
+         review = Review.create!(params_review)
          render json: review, status: :created
       end
   
       def update
          review = Review.find(params[:id])
-         review.update(params_review)
+         review.update!(params_review)
          render json: review, status: :accepted
       end
   
@@ -40,7 +40,7 @@ class ReviewsController < ApplicationController
       private
   
       def params_review
-         params.permit(:comments, :time, :owner_id, :user_id)
+         params.permit(:comments, :owner_id, :user_id)
       end
   
 end

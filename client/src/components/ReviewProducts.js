@@ -1,57 +1,40 @@
-import { useParams , useHistory } from 'react-router-dom'
+// import { useEffect, useState } from 'react'
+// import { useParams , useHistory } from 'react-router-dom'
 
 
-const ReviewProducts = ({data, reviewData}) => {
-  
- console.log(reviewData)
+// const ReviewProducts = () => {
+//    const [data, setData] = useState([])
 
-  const {id} = useParams()
-  
+//    const params = useParams()
 
-  
-  return (
-    
-   <div>
-   {data.map(res => {
-     if(res.id == id){
-      return <p> <img style={{ width: 400}} src={res.image} alt="logo"/> 
-       <h3> Quantity: {res.quantity}</h3> <h3> Description: {res.description}</h3> 
-       <h3> Rating: {res.rating}</h3> <h3> Price: {res.price}</h3> </p>
-       
-     }
-   })}
-      <hr>
-      </hr>
+//    useEffect(() => {
+//     fetch(`/productions/${params.id}`)
+//     .then(res => res.json())
+//     .then(json => setData(json))
+//    }, [])
 
-      {
-        reviewData.map(( res, index) => { 
-          if(res.id == id){
-            return <h3>{res.name}</h3> 
-          }
-        })
-      }
-      
-      {
-         reviewData.map(res => res.reviews.map(res => {
-          if(res.user_id == id){
-            return (
-              <div>
-              <img src={res.image} alt="logo"/>
-              {res.time}
-              <li>{ res.comments }</li>
-              </div>)
-            }
-        
-        }))
-      }
+//    const {id, description, image, price, rating, quantity, reviews, users} = data
+   
+//   return (
+//    <div>
+//    <div>
+//      <img style={{ width: 400}}src={image} alt="img"/>
+//      <h3>{description}</h3>
+//      <h3>{price}</h3>
+//      <h3>{quantity}</h3>
      
+     
+     
+     
+//    </div> 
 
-   </div>
+//    </div>
     
-    
-  )
+//   )
 
   
-}
+// }
 
-export default ReviewProducts
+// export default ReviewProducts
+
+

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
-  resources :members, only: [:index, :show, :create, :update, :destroy]
-  resources :reviews, only: [:index, :show, :create, :update, :destroy]
-  resources :users, only: [:index, :show, :create, :update, :destroy]
+  resources :members, only: [:index, :show, :create]
+  resources :reviews, only: [:index, :show, :create, :destroy]
+  resources :users, only: [:index, :show, :create]
   resources :productions, only: [:index, :show, :create, :update, :destroy]
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
