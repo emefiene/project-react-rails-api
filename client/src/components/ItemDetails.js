@@ -2,12 +2,13 @@ import  { Link, useParams, useHistory } from 'react-router-dom'
 import {useEffect, useState} from 'react'
 
 
-function ProductionDetail({deleteProduction}) {
+function ProductionDetail({deleteProduction, reviewData}) {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
   const [errors, setErrors] = useState(false)
   
   const params = useParams()
+console.log("pppp", params.id)
   const history = useHistory()
   useEffect(()=>{
     //GET to '/productions/:id'
@@ -55,9 +56,25 @@ function ProductionDetail({deleteProduction}) {
 //       }
 //     })
 //   }
+   
+  const {comments, production_id, user_id} = reviewData
+  const re = reviewData.map(res => console.log(res))
+  
+  console.log("production", {production_id})
 
   
+  const name =  reviewData.map(res => res.user).map(re => {
+      if(re.id == params.id){
+        return  re.name
+      }
+    })
   
+   const review = reviewData.map(res => {
+    if(params.id == res.production_id){
+      return <li>{res.comments}</li>
+    }
+
+  })
  
   if(loading) return <h1>Loading</h1>
   if(errors) return <h1>{errors}</h1>
@@ -78,6 +95,10 @@ function ProductionDetail({deleteProduction}) {
               <p>{price}</p>
               <h3>Quantity:</h3>
               <p>{quantity}</p>
+              <hr></hr>
+              <h2>Product reviews</h2>
+              <hr></hr>
+              <h4>{review}</h4>   
             </div>
             
           </div>

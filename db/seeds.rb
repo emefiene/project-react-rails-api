@@ -14,8 +14,7 @@ p1 = Production.create(
     image: "https://m.media-amazon.com/images/I/8116YNSP6pL._AC_SL1500_.jpg",
     price: 20,
     rating: 4,
-    quantity: 20,
-    member:m1
+    quantity: 20
 
 )
 
@@ -24,8 +23,7 @@ p2 = Production.create(
     image: "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?hei=400&fmt=webp",
     price: 20,
     rating: 4,
-    quantity: 20,
-    member:m1
+    quantity: 20
 
 )
 
@@ -34,8 +32,7 @@ p3 = Production.create(
     image: "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?hei=400&fmt=webp",
     price: 20,
     rating: 4,
-    quantity: 20,
-    member:m2
+    quantity: 20
 
 )
 p4 = Production.create(
@@ -43,8 +40,7 @@ p4 = Production.create(
     image: "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?hei=400&fmt=webp",
     price: 20,
     rating: 4,
-    quantity: 20,
-    member:m3
+    quantity: 20
 
 )
 p5 = Production.create(
@@ -52,8 +48,7 @@ p5 = Production.create(
     image: "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?hei=400&fmt=webp",
     price: 20,
     rating: 4,
-    quantity: 20,
-    member:m4
+    quantity: 20
 
 )
 # m1 = Member.create( name: "John", email: "john@gmail.com", password: "1234")
@@ -61,9 +56,9 @@ p5 = Production.create(
 # m3 = Member.create( name: "Look", email: "look@gmail.com", password: "1234")
 # m4 = Member.create( name: "Cook", email: "cook@gmail.com", password: "1234")
 
-u1 = User.create(name: 'Pius', image: "https://m.media-amazon.com/images/I/8134XeLmkRL._RI_.jpg", email: 'email@gmail.com', password: '1234')
-u2 = User.create(name: 'Pius2', image: "https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-pro-max-deep-purple-fall22-a?hei=400&fmt=webp", email: 'p2email@gmail.com', password: '1234')
-u3 = User.create(name: 'Pius3', image: "https://images.pushsquare.com/e863359fe6e07/1280x720.jpg", email: 'p3email@gmail.com', password: '1234')
+u1 = User.create(name: 'Pius', email: 'email@gmail.com', password_digest: '1234')
+u2 = User.create(name: 'Pius2', email: 'p2email@gmail.com', password_digest: '1234')
+u3 = User.create(name: 'Pius3', email: 'p3email@gmail.com', password_digest: '1234')
 
 Review.create(user:u1, production:p1, comments: "Good product")
 Review.create(user:u2, production:p2, comments: "Never coming back")

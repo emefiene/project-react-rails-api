@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
   
       def show
           review = Review.find(params[:id])
-          render json: review, status: :ok
+          render json: review, includes: :users, status: :ok
       end
   
       # def welcome

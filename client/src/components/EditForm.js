@@ -52,7 +52,7 @@ function EditProductionForm(editProduction) {
         <textarea type='text' rows='4' cols='50' name='description' value={formData.description} onChange={handleChange} />
 
         <label> Price</label>
-        <input type='text' name='price' value={formData.price} onChange={handleChange} />
+        <input type='number' name='price' value={formData.price} onChange={handleChange} />
       
         <label>Quantity</label>
         <input type='number' name='quantity' value={formData.quantity} onChange={handleChange} />

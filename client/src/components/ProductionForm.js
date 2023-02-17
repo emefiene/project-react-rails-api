@@ -1,67 +1,80 @@
 import React, { useState} from 'react'
+import styled from 'styled-components'
 
-function ProductionForm({handlePost, errors}) {
+function ProductionForm({addProduction}) {
   const [formData, setFormData] = useState({
-    title:'',
-    genre:'',
-    budget:'',
     image:'',
-    director:'',
-    description:''
+    description:'',
+    price:'',
+    quantity:'',
+    rating:''
   })
 
+  const [errors, setErrors] = useState([])
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
 
   function onSubmit(e){
     e.preventDefault()
-    const production = {
-      title: formData.title,
-      genre: formData.genre,
-      budget: formData.budget,
-      image: formData.image,
-      director: formData.director,
-      description: formData.description,
-      ongoing:true
-    }
-    handlePost(production)
+    
+    fetch('/productions',{
+      method:'POST',
+      headers: {'Content-Type': 'application/json'},
+      body:JSON.stringify({...formData})
+    })
+    .then(res => {
+      if(res.ok){
+        res.json().then(addProduction)
+      } else {
+        //Display errors
+        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+      }
+    })
   }
     return (
       <div className="App">
-        
-       <form onSubmit={onSubmit}>
-       <label>
-          Title
-          <input type="text" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} />
-        </label>
-        <br/>
-        <label>
-        Genre
-          <input type="text" value={formData.genre} onChange={(e) => setFormData({...formData, genre: e.target.value})} />
-        </label>
-        <br/>
-        <label>
-        Budget
-          <input type="number" value={formData.budget} onChange={(e) => setFormData({...formData, budget: e.target.value})} />
-        </label>
-        <br/>
-        <label>
-        Image
-          <input type="text" value={formData.image} onChange={(e) => setFormData({...formData, image: e.target.value})} />
-        </label>
-        <br/>
-        <label>
-        Director
-          <input type="text" value={formData.director} onChange={(e) => setFormData({...formData, director: e.target.value})} />
-        </label>
-        <br/>
-        <label>
-        Description
-          <textarea type="text" rows="4" cols="50" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} />
-        </label>
-        <br/>
-        <input type="submit" value="Submit Production" />
-       </form>
+      {errors?errors.map(e => <div>{e}</div>):null}
+      <Form onSubmit={onSubmit}>
+      <label>Image</label>
+      <input type='text' name='image' value={formData.image} onChange={handleChange} />
+       
+      <label>Description</label>
+      <textarea type='text' rows='4' cols='50' name='description' value={formData.description} onChange={handleChange} />
+
+      <label> Price</label>
+      <input type='number' name='price' value={formData.price} onChange={handleChange} />
+    
+      <label>Quantity</label>
+      <input type='number' name='quantity' value={formData.quantity} onChange={handleChange} />
+      
+      <label>Rating</label>
+      <input type='number' name='rating' value={formData.rating} onChange={handleChange} />
+    
+      <input type='submit' value='Update Production' />
+    </Form>
+    {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
       </div>
     );
   }
   
   export default ProductionForm;
+  export const Form = styled.form`
+  display:flex;
+  flex-direction:column;
+  width: 400px;
+  margin:auto;
+  font-family:Arial;
+  font-size:30px;
+  input[type=submit]{
+    background-color:#42ddf5;
+    color: white;
+    height:40px;
+    font-family:Arial;
+    font-size:30px;
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+  `

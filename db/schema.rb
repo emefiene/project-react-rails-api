@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_03_133455) do
+ActiveRecord::Schema.define(version: 2023_02_03_055441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,6 @@ ActiveRecord::Schema.define(version: 2023_02_03_133455) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "member_id", null: false
-    t.index ["member_id"], name: "index_productions_on_member_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -47,14 +45,12 @@ ActiveRecord::Schema.define(version: 2023_02_03_133455) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "image"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "productions", "members"
   add_foreign_key "reviews", "productions"
   add_foreign_key "reviews", "users"
 end

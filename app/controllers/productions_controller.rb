@@ -10,9 +10,12 @@ class ProductionsController < ApplicationController
         end
     
         def create
-           p = Production.create!(params_owners)
+          byebug
+           p = Production.create!(params_production)
+           byebug
            render json: p, status: :created
         end
+       
     
         def update
            p = Production.find(params[:id])

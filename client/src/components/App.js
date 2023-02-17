@@ -29,7 +29,7 @@ function App() {
    }, [])
 
    useEffect( () => {
-    fetch('/users')
+    fetch('/reviews')
     .then(res => res.json())
     .then(data => {
       setReviewData(data)
@@ -92,7 +92,7 @@ function App() {
         <EditForm editProduction={editProduction} />
       </Route>
       <Route path='/productions/:id'>
-          <ItemDetails deleteProduction={deleteProduction} />
+          <ItemDetails reviewData={reviewData} deleteProduction={deleteProduction} />
       </Route>
       </Switch>
       

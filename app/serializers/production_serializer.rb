@@ -1,6 +1,6 @@
 class ProductionSerializer < ActiveModel::Serializer
   attributes :id, :description, :image, :price, :rating, :quantity
-    
+
     
 
     # formating specifier pintf format method
