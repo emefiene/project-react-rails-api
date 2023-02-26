@@ -7,17 +7,32 @@ import EditForm from "./EditForm"
 import ItemDetails from "./ItemDetails"
 import Navbar from "./Navbar";
 import {createGlobalStyle} from 'styled-components'
-
+import SignUp from "./SignUp";
+import Users from "./Users";
+import Login from "./Login";
 
 function App() {
-
   const [data, setData] = useState([])
   const [errors, setErrors] = useState(false)
   const [reviewData, setReviewData] = useState([])
+  const [currentUser, setCurrentUser] = useState(false)
   // const [render, setRender] = useState([])
-  
+  useEffect(() => {
+    fetch("/authorized_user")
+    .then((res) => {
+      if (res.ok) {
+        res.json()
+        .then((user) => {
+          updateUser(user);
+          fetchProduction()
+        });
+      }
+    })
+  },[])
 
-   useEffect( () => {
+
+  
+   const fetchProduction = () => {
      fetch('/productions')
      .then(res => {
       if(res.ok){
@@ -26,7 +41,7 @@ function App() {
         res.json().then(data => setErrors(data.error))
       }
      })
-   }, [])
+   }
 
    useEffect( () => {
     fetch('/reviews')
@@ -35,6 +50,8 @@ function App() {
       setReviewData(data)
     })
   }, [])
+
+ 
 
   // const updateReview = (patient) => setData(current =>
   //   setRender( [...current, patient])
@@ -68,8 +85,10 @@ function App() {
      }
     })
   })
-  
-  const removeProduction = (id) => setData(current => current.filter(p => p.id !== id)) 
+   
+  const updateUser = (user) => setCurrentUser(user)
+
+  // const removeProduction = (id) => setData(current => current.filter(p => p.id !== id)) 
   
   const deleteProduction = (id) => setData(current => current.filter(p => p.id !== id)) 
 
@@ -79,8 +98,8 @@ function App() {
     <div>
      <GlobalStyle />
       <h1>Hello I'm here to make it happen, trust the process.</h1>
-      <Navbar/>
-      
+      <Navbar updateUser={updateUser}/>
+      { !currentUser? <Login error={'please login'} updateUser={updateUser} /> :
       <Switch>
       <Route exact path="/">
        <ItemContainer data={data} />
@@ -94,8 +113,17 @@ function App() {
       <Route path='/productions/:id'>
           <ItemDetails reviewData={reviewData} deleteProduction={deleteProduction} />
       </Route>
+      <Route path='/users/new'>
+        <SignUp />
+      </Route>
+      <Route path='/users/:id'>
+        <Users updateUser={updateUser}/>
+      </Route>
+      <Route path='/login'>
+        <Login updateUser={updateUser}/>
+      </Route>
       </Switch>
-      
+  }
     
     </div>
   );
