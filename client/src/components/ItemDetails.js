@@ -1,14 +1,17 @@
-import  { Link, useParams, useHistory } from 'react-router-dom'
-import {useEffect, useState} from 'react'
+ import  { Link, useParams, useHistory } from 'react-router-dom'
+ import {useEffect, useState} from 'react'
 
 
-function ProductionDetail({deleteProduction, reviewData}) {
+function ItemDetail({ reviewData, handleDelete,handleDeleteReview}) {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
+  const [view, setView] = useState()
   const [errors, setErrors] = useState(false)
-  
+  const {id, description, image, price, rating, quantity, reviews, users} = data
+  // console.log(reviewData)
   const params = useParams()
-console.log("pppp", params.id)
+  // console.log(reviewData)
+  // const {name} = userId
   const history = useHistory()
   useEffect(()=>{
     //GET to '/productions/:id'
@@ -17,69 +20,49 @@ console.log("pppp", params.id)
       if(res.ok){
         res.json().then(data => {
           setData(data)
+          // data.map(res => setView(res))
           setLoading(false)
         })
       } else {
-        console.log('error')
+        // console.log('error')
         res.json().then(data => setErrors(data.error))
       }
     })
   },[])
-
-  function handleDelete(){
-    //DELETE to `/productions/${params.id}`
-    fetch(`/productions/${params.id}`,{
-      method:'DELETE',
-      headers: {'Content-Type': 'application/json'}
-    })
-    .then(res => {
-      if(res.ok){
-        deleteProduction(id)
-        history.push('/')
-      } else {
-        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
-      }
-    })
-  }
-
-//   const handleBuy = () => {
-//     fetch(`/tickets`,{
-//       method:'POST',
-//       headers: {'Content-Type': 'application/json'},
-//       body:JSON.stringify({production_id:id, user_id:1, price:30.50})
-//     })
-//     .then(res => {
-//       if(res.ok){
-//         history.push('/users/1')
-//       } else {
-//         res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
-//       }
-//     })
-//   }
-   
-  const {comments, production_id, user_id} = reviewData
-  const re = reviewData.map(res => console.log(res))
   
-  console.log("production", {production_id})
-
   
-  const name =  reviewData.map(res => res.user).map(re => {
-      if(re.id == params.id){
-        return  re.name
-      }
-    })
   
-   const review = reviewData.map(res => {
-    if(params.id == res.production_id){
-      return <li>{res.comments}</li>
-    }
+  //  const review = reviewData.map(res => {
+  //   if(params.id == res.production_id){
+  //     return <li>{res.comments}</li>
+  //   }
 
-  })
+  // })
  
+  
+
   if(loading) return <h1>Loading</h1>
   if(errors) return <h1>{errors}</h1>
+   
+  // const userID = userId.map(res => console.log(res))
+  
 
-  const {id, description, image, price, rating, quantity, reviews, users} = data
+
+// console.log(reviewID)
+// const reviewID = reviews.map(res => res.id)
+
+
+const itemList = reviews.map((item) => (
+  <li >
+   {item.name} : {item.comments} 
+  </li>
+));
+
+//  const rev = reviews.map(re => console.log("re", re))
+  // const {name, comments} = reviews
+  // console.log(comments)
+  // const name = reviews.map(res => res.name)
+  // console.log(data)
 //   console.log(cast_members)
   //Place holder data, will be replaced in the assosiations lecture. 
   // const crew_members = ['Lily-Mai Harding', 'Cathy Luna', 'Tiernan Daugherty', 'Giselle Nava', 'Alister Wallis', 'Aishah Rowland', 'Keiren Bernal', 'Aqsa Parrish', 'Daanyal Laing', 'Hollie Haas']
@@ -87,27 +70,31 @@ console.log("pppp", params.id)
       <div>
           <div className='wrapper'>
             <div>
-              
+            <Link to={`/reviews/${data.id}`} > ****** Write Review ****** :{rating}</Link>
               <img style={{ width: 400}} src={image}/>
               <h3>Description:</h3>
               <p>{description}</p>
               <h3>Price:</h3>
               <p>{price}</p>
               <h3>Quantity:</h3>
-              <p>{quantity}</p>
+              <p  >{quantity}</p>
               <hr></hr>
-              <h2>Product reviews</h2>
+              <h3>...Reviews...</h3>
               <hr></hr>
-              <h4>{review}</h4>   
+              <h3 onClick={() => handleDeleteReview(reviews)}>{itemList}</h3>
+              
+              
+             
             </div>
             
           </div>
       <button><Link to={`/productions/${id}/edit`}>Edit Production</Link></button>
-      <button onClick={handleDelete}>Delete Production</button>
+      <button onClick={() => handleDelete(data)}>Delete Production</button>
       
       </div>
     )
   }
 
-  
-  export default ProductionDetail
+  // <Link to={`/reviews/${id}/edit`}></Link>
+  export default ItemDetail
+  // <button><Link to={`/reviews/${id}/edit`}>Edit Production</Link></button>

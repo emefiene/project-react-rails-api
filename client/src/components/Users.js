@@ -28,7 +28,10 @@ const Users = () => {
     if(errors) return <h1>{errors}</h1>
     return (
         <div>
-            <h1>{user.name}</h1>
+        <h1>{user.name}</h1>
+            <img src={user.image} alt="logo" />
+            <h1>{user.age}</h1>
+            <h1>{user.address}</h1>
             
         </div>
     )

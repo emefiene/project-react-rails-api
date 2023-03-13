@@ -12,7 +12,7 @@ function SignUp() {
     const [errors, setErrors] = useState([])
     const history = useHistory()
 
-    const {name, email, password, password_confirmation} = formData
+    const {name, email, password, password_confirmation, age, address, image} = formData
 
     function onSubmit(e){
         e.preventDefault()
@@ -20,7 +20,10 @@ function SignUp() {
             name,
             email,
             password,
-            password_confirmation
+            password_confirmation,
+            age,
+            address,
+            image
         }
        
         fetch(`/users`,{
@@ -45,7 +48,7 @@ function SignUp() {
         setFormData({ ...formData, [name]: value })
       }
     return (
-        <> 
+        <div> 
         <Form onSubmit={onSubmit}>
         <label>
           Username
@@ -66,16 +69,29 @@ function SignUp() {
          Password Confirmation
          </label>
         <input type='password' name='password_confirmation' value={password_confirmation} onChange={handleChange} />
+
+         <label>
+          Age
+         </label>
+         <input type='text' name='age' value={age} onChange={handleChange} />
+
+         <label>
+          Address
+         </label>
+         <input type='text' name='address' value={address} onChange={handleChange} />
+
+         <label>Image</label>
+         <input type='text' name='image' value={image} onChange={handleChange} />
        
         <input type='submit' value='Sign up!' />
       </Form>
       {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
-        </>
+        </div>
     )
 }
 
 export default SignUp
-export const Form = styled.form`
+const Form = styled.form`
   display:flex;
   flex-direction:column;
   width: 400px;

@@ -21,6 +21,7 @@ const Navbar = ({updateUser}) => {
     <li><NavLink to='/productions/new'>New Production</NavLink></li>
     <li><NavLink to='/users/new'>Sign Up</NavLink></li>
     <li><NavLink to='/users/1'>User Page</NavLink></li>
+    <li><NavLink to='/users'>View All Registered users</NavLink></li>
     </div>
   )
 }

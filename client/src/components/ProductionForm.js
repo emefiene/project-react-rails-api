@@ -61,7 +61,8 @@ function ProductionForm({addProduction}) {
   }
   
   export default ProductionForm;
-  export const Form = styled.form`
+  
+   const Form = styled.form`
   display:flex;
   flex-direction:column;
   width: 400px;

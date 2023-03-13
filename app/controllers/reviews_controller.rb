@@ -31,16 +31,16 @@ class ReviewsController < ApplicationController
   
       def destroy
           review = Review.find(params[:id])
-          review.destroy
           head :no_content
       end
-  
+    
+
   
   
       private
   
       def params_review
-         params.permit(:comments, :owner_id, :user_id)
+         params.permit(:name, :comments, :production_id, :user_id)
       end
   
 end

@@ -2,39 +2,42 @@ import React, { useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-function EditProductionForm(editProduction) {
-  const [formData, setFormData] = useState({
-    image:'',
-    description:'',
-    price:'',
-    quantity:'',
-    rating:''
-  })
-  const [errors, setErrors] = useState([])
+function EditReview(editReview, userId) {
+    const [formData, setFormData] = useState({
+        comments:''
+      })
+    
+      const [errors, setErrors] = useState([])
+    
+      const handleChange = (e) => {
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value })
+      }
+    
   const {id} = useParams()
   useEffect(() => {
-    fetch(`/productions/${id}`)
+    fetch(`/reviews/${id}`)
     .then(res => res.json())
     .then(setFormData)
   },[])
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+//   const handleChange = (e) => {
+//     const { name, value } = e.target
+//     setFormData({ ...formData, [name]: value })
+//   }
 
 
   function onSubmit(e){
     e.preventDefault()
     //PATCH to `/productions/${id}`
-    fetch(`/productions/${id}`,{
+    fetch(`/reviews/${id}`,{
       method:'PATCH',
       headers: {'Content-Type': 'application/json'},
-      body:JSON.stringify(formData)
+      body:JSON.stringify({name:userId.name, ...formData, production_id:id, user_id:userId.id})
     })
     .then(res => {
       if(res.ok){
-        res.json().then(editProduction)
+        res.json().then(editReview)
       } else {
         //Display errors
         res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
@@ -45,21 +48,7 @@ function EditProductionForm(editProduction) {
       <div className='App'>
       {errors?errors.map(e => <div>{e}</div>):null}
       <Form onSubmit={onSubmit}>
-        <label>Image</label>
-        <input type='text' name='image' value={formData.image} onChange={handleChange} />
-         
-        <label>Description</label>
-        <textarea type='text' rows='4' cols='50' name='description' value={formData.description} onChange={handleChange} />
-
-        <label> Price</label>
-        <input type='number' name='price' value={formData.price} onChange={handleChange} />
-      
-        <label>Quantity</label>
-        <input type='number' name='quantity' value={formData.quantity} onChange={handleChange} />
-        
-        <label>Rating</label>
-        <input type='number' name='rating' value={formData.rating} onChange={handleChange} />
-      
+      <textarea type='text' rows='10' cols='100' name='comments' value={formData.comments} onChange={handleChange} />
         <input type='submit' value='Update Production' />
       </Form>
       {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
@@ -67,7 +56,7 @@ function EditProductionForm(editProduction) {
     )
   }
   
-  export default EditProductionForm
+  export default EditReview
   const Form = styled.form`
   display:flex;
   flex-direction:column;

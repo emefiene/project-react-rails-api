@@ -64,7 +64,7 @@ function Login({updateUser}) {
 }
 
 export default Login
-export const Form = styled.form`
+ const Form = styled.form`
   display:flex;
   flex-direction:column;
   width: 400px;

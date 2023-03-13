@@ -10,9 +10,7 @@ class ProductionsController < ApplicationController
         end
     
         def create
-          byebug
            p = Production.create!(params_production)
-           byebug
            render json: p, status: :created
         end
        
@@ -25,11 +23,11 @@ class ProductionsController < ApplicationController
     
         def destroy
             p = Production.find(params[:id])
-            p.destroy
+            p.destroy.all
             head :no_content
         end
     
-    
+        
     
         private
     

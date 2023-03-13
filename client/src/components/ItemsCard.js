@@ -2,7 +2,7 @@ import React from 'react'
 import { Link , useParams} from 'react-router-dom';
 
 const ItemsCard = ({dataObj:{image,description,rating,price,quantity},dataObj}) => {
-  console.log(dataObj)
+  // console.log(dataObj)
   // const {id} = useParams()
  
   return (
