@@ -19,6 +19,7 @@ const Navbar = ({updateUser}) => {
   
   return (
     <Nav>
+    <NavH1>Phase-4-Project-Rails-React</NavH1>
     <Menu>
       <button onClick={handleLogOut}>Log Out</button>
       {!menu?
@@ -53,6 +54,8 @@ const Nav = styled.div`
 
 const Menu = styled.div`
   display: flex;
+  background-color: #B6C8A9;
+  padding: 0.01%
   align-items: center;
   a{
     text-decoration: none;

@@ -48,6 +48,11 @@ function ItemDetail({deleteProduction}) {
   if(loading) return <h1>Loading</h1>
   if(errors) return <h1>{errors}</h1>
 
+const reviewLength = reviews.map((item) => (
+    <li >
+     {item.name} : {item.comments} 
+    </li>
+  ));
 const itemList = reviews.map((item) => (
   <li >
    {item.name} : {item.comments} 
@@ -66,7 +71,7 @@ const itemList = reviews.map((item) => (
               <p>{price}</p>
               <h3>Quantity:</h3>
               <p  >{quantity}</p>
-              <p>{rating}</p>
+              <p>Rating:{reviewLength.length}</p>
               <Link to={`/reviews/${data.id}`} > <h3>****** Write Review ******</h3> </Link>
               <hr></hr>
               

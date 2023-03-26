@@ -2,21 +2,27 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link , useParams} from 'react-router-dom';
 
-const ItemsCard = ({dataObj:{image,description,rating,price,quantity},dataObj}) => {
-
+const ItemsCard = ({dataObj:{image,description,rating,price,quantity,reviews},dataObj}) => {
+console.log(dataObj)
  
+const reviewLength = reviews.map((item) => (
+  <li >
+   {item.name} : {item.comments} 
+  </li>
+));
+
   return (
-    <Card>
+    <Card style={{ marginLeft: "20px"}}>
        <Link to={`/productions/${dataObj.id}`} > 
        <img style={{ width: "300px",
         height: "200px",
         padding: "15px",
-        marging: "10px", marginRight: "20px"}} src={image} alt="img"/> 
+        marging: "10px", marginRight: "2px"}} src={image} alt="img"/> 
        </Link>
        <h1>{description}</h1>
        <h3> ${price}</h3>
        <h3>Quantity : {quantity}</h3>
-       <Link to={`/productions/${dataObj.id}`} > Rating :{rating}</Link>
+       <Link to={`/productions/${dataObj.id}`} > Rating :{reviewLength.length}</Link>
     </Card>
   )
 }
@@ -37,13 +43,5 @@ const Card = styled.div`
    a {
     text-decoration: none;
   }
-   
-
-   .img{
-    width: 20x;
-    height: 20px;
-    padding: 10px;
-    marging: 15px 
-   }
 
 `

@@ -13,6 +13,9 @@ import Login from "./Login";
 import EditReview from "./EditReview";
 import UsersContainer from "./UsersContainer";
 import EditUser from "./EditUser";
+import Search from "./Search";
+import Footer from "./Footer";
+
 
 function App() {
   const [data, setData] = useState([])
@@ -21,7 +24,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(false)
   const [userId, setUserId] = useState([])
   const [userList, setUserList] = useState([])
-  
+  const [items, setItems] = useState([])
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
 
@@ -74,7 +77,7 @@ function App() {
       if(res.ok){
         res.json().then(data => {
           setUserList(data)
-        
+          setItems(data)
         })
         
       }else {
@@ -127,13 +130,17 @@ function App() {
   
   const updateUser = (user) => setCurrentUser(user)
 
- 
   
   const deleteProduction = (id) => setData(current => current.filter(p => p.id !== id)) 
 
   const deleteUser = (id) => setUserList(current => current.filter(p => p.id !== id)) 
 
-  
+  const handleSearch = (e) => {
+    const filterSearch = items.filter(itemObj => {
+      return itemObj.name.toLowerCase().includes(e.target.value.toLowerCase())
+    })
+   setUserList(filterSearch)
+  }
 
 
   if(errors) return <h1>{errors}</h1>
@@ -143,6 +150,7 @@ function App() {
     <div>
      <GlobalStyle />
       <h1 style={{textAlign: "center"}}><strong>Favorites</strong></h1>
+      
       <Navbar updateUser={updateUser}/>
       <Route path='/users/new'>
       <SignUp  addUser={addUser}/>
@@ -182,11 +190,15 @@ function App() {
   </Route>
 
   <Route path="/users">
-  <UsersContainer deleteUser={deleteUser} userList={userList} />
+  <Search handleSearch={handleSearch}/>
+  <UsersContainer deleteUser={deleteUser} userList={userList}
+  />
+  
 </Route>
       </Switch>
   }
-    
+  <hr></hr>
+  <Footer/>
     </div>
   );
 }
@@ -194,11 +206,11 @@ function App() {
 export default App;
 const GlobalStyle = createGlobalStyle`
     body{
-      background-color: Aquamarine; 
+      margin:0;
+     background-color: #EFEFEF; ; 
       color:black
     }
-
+    
     
     `
 
-  
