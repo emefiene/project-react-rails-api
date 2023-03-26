@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
  
-#    before_action :authorized_user
+
    before_action :authorized_user, only: [:create]
   
 
@@ -36,4 +36,3 @@ class ApplicationController < ActionController::API
     end 
 
 end
-# before_action :authorized_user, only: [:create]

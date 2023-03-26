@@ -10,14 +10,6 @@ class MembersController < ApplicationController
           render json: member, status: :ok
       end
   
-      # def welcome
-      #     render json: {hi: 'welcome'}
-      # end
-      
-      # def welcome_name
-      #     render json: {hi: "welcome #{params[:name]}"}
-      # end
-  
       def create
          member = Member.create!(params_member)
          render json: member, status: :ok

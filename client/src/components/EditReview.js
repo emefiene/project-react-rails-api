@@ -21,12 +21,6 @@ function EditReview(editReview, currentUser) {
     .then(setFormData)
   },[])
 
-//   const handleChange = (e) => {
-//     const { name, value } = e.target
-//     setFormData({ ...formData, [name]: value })
-//   }
-
-
   function onSubmit(e){
     e.preventDefault()
     //PATCH to `/productions/${id}`

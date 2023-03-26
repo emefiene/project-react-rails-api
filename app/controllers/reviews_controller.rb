@@ -11,14 +11,6 @@ class ReviewsController < ApplicationController
           render json: review, includes: :users, status: :ok
       end
   
-      # def welcome
-      #     render json: {hi: 'welcome'}
-      # end
-      
-      # def welcome_name
-      #     render json: {hi: "welcome #{params[:name]}"}
-      # end
-  
       def create
          review = Review.create!(params_review)
          render json: review, status: :created

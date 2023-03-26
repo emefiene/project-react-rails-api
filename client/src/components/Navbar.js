@@ -47,6 +47,7 @@ const NavH1 = styled.h1`
 font-family: 'Splash', cursive;
 `
 const Nav = styled.div`
+background-color: #B6C8A9;
   display: flex;
   justify-content:space-between;
   
@@ -54,7 +55,6 @@ const Nav = styled.div`
 
 const Menu = styled.div`
   display: flex;
-  background-color: #B6C8A9;
   padding: 0.01%
   align-items: center;
   a{

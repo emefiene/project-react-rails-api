@@ -46,9 +46,7 @@ function EditUser({updateUserInfor}) {
       }
     })
   }
-//   res.json().then(json => setErrors(Object.entries(json.errors)))
-//   {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
-  
+
     return (
       <div className='App'>
      

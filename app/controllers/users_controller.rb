@@ -1,7 +1,6 @@
 
 class UsersController < ApplicationController
 
-   # before_action :authorized_user, only: [:create]
    skip_before_action :authorized_user, only: [:create]
    
    
@@ -29,14 +28,6 @@ class UsersController < ApplicationController
       user = User.find(params[:id])
       render json: user, status: :ok
   end
-  
-  # def welcome
-  #     render json: {hi: 'welcome'}
-  # end
-  
-  # def welcome_name
-  #     render json: {hi: "welcome #{params[:name]}"}
-  # end
 
   def create
      user = User.create!(params_user)
@@ -53,18 +44,8 @@ class UsersController < ApplicationController
      end
 
   end
-     
 
-  # def update
-  #    user = User.find(params[:id])
-  #    user.update!(user_permit)
-  #    render json: user, status: :accepted
-
-  # # end
-  # user = User.find(params[:id])
-  #     user.destroy
-  #     head :no_content
-    def destroy
+  def destroy
      user = User.find(params[:id])
      if user.id == current_user.id
        user.destroy
@@ -73,17 +54,6 @@ class UsersController < ApplicationController
         render json: {Error: ":  Not Authorized User"}, status: :not_found
      end
   end
-
-  # def destroy
-  #    user = User.find(params[:id])
-  #    if user.id == current_user.id
-  #      user.destroy
-  #      head :no_content
-  #      else
-  #       render json: {Error: ":  Not Authorized User"}, status: :not_found
-  #    end
-  # end
-
 
   private
 

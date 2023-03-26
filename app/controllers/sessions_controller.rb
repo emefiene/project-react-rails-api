@@ -21,4 +21,3 @@ class SessionsController < ApplicationController
         head :no_content
     end
 end
-# skip_before_action :authorized_user, only: [:create]
