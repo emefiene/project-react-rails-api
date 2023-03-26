@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from "react"
 import ItemContainer from "./ItemContainer"
 import ReviewProducts from "./ReviewProducts"
-import { Switch, Route} from "react-router-dom";
+import { Switch, Route, useParams} from "react-router-dom";
 import ProductionForm from "./ProductionForm";
 import EditForm from "./EditForm"
 import ItemDetails from "./ItemDetails"
@@ -19,11 +19,12 @@ function App() {
   const [errors, setErrors] = useState(false)
   const [reviewData, setReviewData] = useState([])
   const [currentUser, setCurrentUser] = useState(false)
-  const [userId, setUserId] = useState()
-  const [userList, setUserList] = useState()
-  const [render, setRender] = useState([])
+  const [userId, setUserId] = useState([])
+  const [userList, setUserList] = useState([])
+  
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     fetch("/authorized_user")
     .then((res) => {
@@ -31,13 +32,18 @@ function App() {
         res.json()
         .then((user) => {
           updateUser(user);
+          console.log("u", user)
           setUserId(user)
           fetchProduction()
+          setLoading(false)
+          
         });
       }
     })
   },[])
+   
 
+  console.log("current", currentUser)
 
   
    const fetchProduction = () => {
@@ -46,9 +52,10 @@ function App() {
       if(res.ok){
         res.json().then(setData)
       }else {
+        
         res.json().then(data => setError(data.error))
       }
-     })
+     }, [])
    }
 
    useEffect( () => {
@@ -80,31 +87,13 @@ function App() {
     }, 100);
   }, [])
  
-
-  // const updateReview = (patient) => setData(current =>
-  //   setRender( [...current, patient])
-    
-  //  )
+ 
 
   const addProduction = (data) => setData(current => [data, ...current])
 
   const addReview = (data) => setReviewData(current => [data, ...current])
 
-  //  function newProduction(data){
-  //   fetch('/productions',{
-  //     method:'POST',
-  //     headers: {'Content-Type': 'application/json'},
-  //     body:JSON.stringify(data)
-  //   })
-  //   .then(res => res.json())
-  //   .then(res => {
-  //     if(res.errors){
-
-  //     } else {
-  //       setErrors([...data,res])
-  //     }
-  //   })
-  // }
+  const addUser = (data) => setUserList(current => [data, ...current])
 
   const editProduction = (editProduction) => setData(current => {
     return current.map(data => {
@@ -138,46 +127,13 @@ function App() {
   
   const updateUser = (user) => setCurrentUser(user)
 
-  // const removeProduction = (id) => setData(current => current.filter(p => p.id !== id)) 
+ 
   
   const deleteProduction = (id) => setData(current => current.filter(p => p.id !== id)) 
 
-  const deleteReview = (id) => setReviewData(current => current.filter(p => p.id !== id)) 
+  const deleteUser = (id) => setUserList(current => current.filter(p => p.id !== id)) 
 
-  function handleDelete(id){
-    console.log(id)
-    //DELETE to `/productions/${params.id}`
-    // fetch(`/productions/${params.id}`,{
-    //   method:'DELETE',
-    //   headers: {'Content-Type': 'application/json'}
-    // })
-    // .then(res => {
-    //   if(res.ok){
-    //     deleteProduction(res)
-    //     history.push('/')
-    //   } else {
-    //     res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
-    //   }
-    // })
-  }
   
-  function handleDeleteReview(rev){
-    console.log(rev)
-    //DELETE to `/productions/${params.id}`
-
-    // fetch(`/reviews/${reviewID}`,{
-    //   method:'DELETE',
-    //   headers: {'Content-Type': 'application/json'}
-    // })
-    // .then(res => {
-    //   if(res.ok){
-    //     console.log(res)
-    //     // history.push('/')
-    //   } else {
-    //     res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
-    //   }
-    // })
-  }
 
 
   if(errors) return <h1>{errors}</h1>
@@ -186,9 +142,14 @@ function App() {
   return (
     <div>
      <GlobalStyle />
-      <h1>Hello I'm here to make it happen, trust the process.</h1>
+      <h1 style={{textAlign: "center"}}><strong>Favorites</strong></h1>
       <Navbar updateUser={updateUser}/>
+      <Route path='/users/new'>
+      <SignUp  addUser={addUser}/>
+      </Route>
+    
       { !currentUser? <Login error={'please login'} updateUser={updateUser} /> :
+      
       <Switch>
       <Route exact path="/">
        <ItemContainer data={data} />
@@ -199,18 +160,14 @@ function App() {
       <Route  path='/productions/:id/edit'>
         <EditForm editProduction={editProduction} />
       </Route>
-      <Route  path='/user/:id/edit'>
-      <EditUser updateUserInfor={updateUserInfor} userId={userId}/>
-    </Route>
+    
       <Route  path='/reviews/:id/edit'>
-      <EditReview editReview={editReview} userId={userId} />
+      <EditReview editReview={editReview} currentUser={currentUser} userId={userId} />
     </Route>
       <Route path='/productions/:id'>
-          <ItemDetails reviewData={reviewData} handleDelete={handleDelete} handleDeleteReview={handleDeleteReview} userId={userId} />
+          <ItemDetails reviewData={reviewData} deleteProduction={deleteProduction} />
       </Route>
-      <Route path='/users/new'>
-        <SignUp />
-      </Route>
+     
       <Route path='/users/:id'>
         <Users updateUser={updateUser}/>
       </Route>
@@ -218,11 +175,15 @@ function App() {
         <Login updateUser={updateUser}/>
       </Route>
       <Route path= '/reviews/:id'>
-      <ReviewProducts userId={userId} addReview={addReview}/>
+      <ReviewProducts currentUser={currentUser} userId={userId} addReview={addReview}/>
     </Route>
-    <Route path="/users">
-       <UsersContainer userList={userList} />
-    </Route>
+    <Route  path='/user/:id/edit'>
+    <EditUser updateUserInfor={updateUserInfor} currentUser={currentUser} userId={userId}/>
+  </Route>
+
+  <Route path="/users">
+  <UsersContainer deleteUser={deleteUser} userList={userList} />
+</Route>
       </Switch>
   }
     
@@ -233,7 +194,11 @@ function App() {
 export default App;
 const GlobalStyle = createGlobalStyle`
     body{
-      background-color: black; 
-      color:white;
+      background-color: Aquamarine; 
+      color:black
     }
+
+    
     `
+
+  

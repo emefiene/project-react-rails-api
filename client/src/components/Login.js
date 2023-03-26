@@ -1,16 +1,16 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 
 function Login({updateUser}) {
     const [formData, setFormData] = useState({
         name:'',  
-        email:'',
         password:''
     })
     const [errors, setErrors] = useState([])
+    
     const history = useHistory()
-
+   
     const {name, password} = formData
 
     function onSubmit(e){
@@ -19,16 +19,16 @@ function Login({updateUser}) {
             name,
             password
         }
-       console.log(user)
-        fetch(`/login`,{
+
+   const post =     fetch(`/login`,{
           method:'POST',
           headers:{'Content-Type': 'application/json'},
           body:JSON.stringify(user)
         })
         .then(res => {
             if(res.ok){
-                res.json().then(user => {
-                    updateUser(user)
+                res.json().then(data => {
+                    updateUser(data)
                     history.push(`/users/${user.id}`)
                 })
             }else {
@@ -37,13 +37,14 @@ function Login({updateUser}) {
         })
        
     }
+  
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
       }
     return (
-        <> 
+        <div> 
         <Form onSubmit={onSubmit}>
         <label>
           Username
@@ -59,7 +60,7 @@ function Login({updateUser}) {
         <input type='submit' value='Log in!' />
       </Form>
       {errors? <div>{errors}</div>:null}
-        </>
+        </div>
     )
 }
 
@@ -73,7 +74,7 @@ export default Login
   font-size:30px;
   input[type=submit]{
     background-color:#42ddf5;
-    color: white;
+    color: black;
     height:40px;
     font-family:Arial;
     font-size:30px;

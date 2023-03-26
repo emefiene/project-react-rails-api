@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-function EditUser({updateUserInfor, userId}) {
+function EditUser({updateUserInfor}) {
     
   const [formData, setFormData] = useState({
     image:'',
@@ -14,6 +14,7 @@ function EditUser({updateUserInfor, userId}) {
     address:''
   })
   const [errors, setErrors] = useState([])
+  const history = useHistory()
   const {id} = useParams()
   useEffect(() => {
     fetch(`/dynamic/${id}`)
@@ -38,6 +39,7 @@ function EditUser({updateUserInfor, userId}) {
     .then(res => {
       if(res.ok){
         res.json().then(updateUserInfor)
+        history.push(`/users/${id}`)
       } else {
         //Display errors
         res.json().then(data => setErrors(Object.entries(data).map(e => `${e[0]} ${e[1]}`)))
@@ -95,7 +97,7 @@ function EditUser({updateUserInfor, userId}) {
   font-size:30px;
   input[type=submit]{
     background-color:#42ddf5;
-    color: white;
+    color: black;
     height:40px;
     font-family:Arial;
     font-size:30px;

@@ -9,6 +9,7 @@ const Users = () => {
     
     const params = useParams()
     const {id} = params
+    // window.location.reload();
     useEffect(()=>{
         fetch(`/users/${id}`)
         .then(res => {

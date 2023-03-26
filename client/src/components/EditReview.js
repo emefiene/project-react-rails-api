@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-function EditReview(editReview, userId) {
+function EditReview(editReview, currentUser) {
     const [formData, setFormData] = useState({
         comments:''
       })
@@ -33,7 +33,7 @@ function EditReview(editReview, userId) {
     fetch(`/reviews/${id}`,{
       method:'PATCH',
       headers: {'Content-Type': 'application/json'},
-      body:JSON.stringify({name:userId.name, ...formData, production_id:id, user_id:userId.id})
+      body:JSON.stringify({name:currentUser.name, ...formData, production_id:id, user_id:currentUser.id})
     })
     .then(res => {
       if(res.ok){

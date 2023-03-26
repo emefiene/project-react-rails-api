@@ -2,16 +2,14 @@
  import {useEffect, useState} from 'react'
 
 
-function ItemDetail({ reviewData, handleDelete,handleDeleteReview}) {
+function ItemDetail({deleteProduction}) {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
   const [view, setView] = useState()
   const [errors, setErrors] = useState(false)
   const {id, description, image, price, rating, quantity, reviews, users} = data
-  // console.log(reviewData)
+  console.log(id)
   const params = useParams()
-  // console.log(reviewData)
-  // const {name} = userId
   const history = useHistory()
   useEffect(()=>{
     //GET to '/productions/:id'
@@ -30,27 +28,25 @@ function ItemDetail({ reviewData, handleDelete,handleDeleteReview}) {
     })
   },[])
   
-  
-  
-  //  const review = reviewData.map(res => {
-  //   if(params.id == res.production_id){
-  //     return <li>{res.comments}</li>
-  //   }
-
-  // })
+  function handleDelete(){
+    //DELETE to `/productions/${params.id}`
+    fetch(`/productions/${params.id}`,{
+      method:'DELETE',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => {
+      if(res.ok){
+        deleteProduction(id)
+        history.push('/')
+      }
+      // } else {
+      //   res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+      // }
+    })
+  }
  
-  
-
   if(loading) return <h1>Loading</h1>
   if(errors) return <h1>{errors}</h1>
-   
-  // const userID = userId.map(res => console.log(res))
-  
-
-
-// console.log(reviewID)
-// const reviewID = reviews.map(res => res.id)
-
 
 const itemList = reviews.map((item) => (
   <li >
@@ -58,30 +54,26 @@ const itemList = reviews.map((item) => (
   </li>
 ));
 
-//  const rev = reviews.map(re => console.log("re", re))
-  // const {name, comments} = reviews
-  // console.log(comments)
-  // const name = reviews.map(res => res.name)
-  // console.log(data)
-//   console.log(cast_members)
-  //Place holder data, will be replaced in the assosiations lecture. 
-  // const crew_members = ['Lily-Mai Harding', 'Cathy Luna', 'Tiernan Daugherty', 'Giselle Nava', 'Alister Wallis', 'Aishah Rowland', 'Keiren Bernal', 'Aqsa Parrish', 'Daanyal Laing', 'Hollie Haas']
   return (
-      <div>
+      <div style={{ marginLeft: "20px"}}>
           <div className='wrapper'>
             <div>
-            <Link to={`/reviews/${data.id}`} > ****** Write Review ****** :{rating}</Link>
-              <img style={{ width: 400}} src={image}/>
+            <hr></hr>
+              <img style={{ width: 550}} src={image}/>
               <h3>Description:</h3>
               <p>{description}</p>
               <h3>Price:</h3>
               <p>{price}</p>
               <h3>Quantity:</h3>
               <p  >{quantity}</p>
+              <p>{rating}</p>
+              <Link to={`/reviews/${data.id}`} > <h3>****** Write Review ******</h3> </Link>
               <hr></hr>
-              <h3>...Reviews...</h3>
+              
+              <h3>Reviews</h3>
               <hr></hr>
-              <h3 onClick={() => handleDeleteReview(reviews)}>{itemList}</h3>
+              
+              <h3>{itemList}</h3>
               
               
              
@@ -95,6 +87,5 @@ const itemList = reviews.map((item) => (
     )
   }
 
-  // <Link to={`/reviews/${id}/edit`}></Link>
   export default ItemDetail
-  // <button><Link to={`/reviews/${id}/edit`}>Edit Production</Link></button>
+ 

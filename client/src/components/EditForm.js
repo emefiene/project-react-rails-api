@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-function EditProductionForm(editProduction) {
+function EditForm({editProduction}) {
   const [formData, setFormData] = useState({
     image:'',
     description:'',
@@ -11,6 +11,7 @@ function EditProductionForm(editProduction) {
     rating:''
   })
   const [errors, setErrors] = useState([])
+  const history = useHistory()
   const {id} = useParams()
   useEffect(() => {
     fetch(`/productions/${id}`)
@@ -35,6 +36,7 @@ function EditProductionForm(editProduction) {
     .then(res => {
       if(res.ok){
         res.json().then(editProduction)
+        history.push(`/productions/${id}`)
       } else {
         //Display errors
         res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
@@ -67,7 +69,7 @@ function EditProductionForm(editProduction) {
     )
   }
   
-  export default EditProductionForm
+  export default EditForm
   const Form = styled.form`
   display:flex;
   flex-direction:column;
@@ -77,7 +79,7 @@ function EditProductionForm(editProduction) {
   font-size:30px;
   input[type=submit]{
     background-color:#42ddf5;
-    color: white;
+    color: black;
     height:40px;
     font-family:Arial;
     font-size:30px;

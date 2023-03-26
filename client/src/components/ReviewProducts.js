@@ -1,14 +1,15 @@
-import React, { useState} from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState, useEffect} from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-function ReviewProducts ({addReview, userId}) {
-
+function ReviewProducts ({addReview, currentUser}) {
+console.log("USER", currentUser)
   const params = useParams()
+  const history = useHistory()
   const [formData, setFormData] = useState({
     comments:''
   })
-
+  const [loading, setLoading] = useState(true)
   const [errors, setErrors] = useState([])
 
   const handleChange = (e) => {
@@ -18,20 +19,21 @@ function ReviewProducts ({addReview, userId}) {
 
   function onSubmit(e){
     e.preventDefault()
-
     fetch('/reviews',{
       method:'POST',
       headers: {'Content-Type': 'application/json'},
-      body:JSON.stringify({name:userId.name, ...formData, production_id:params.id, user_id:userId.id})
+      body:JSON.stringify({name:currentUser.name, ...formData, production_id:params.id, user_id:currentUser.id})
     })
     .then(res => {
       if(res.ok){
         res.json().then(addReview)
+        history.push(`/productions/${params.id}`)
       } else {
         //Display errors
-        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+        res.json().then(data => setErrors(Object.entries(data.error).map(e => `${e[0]} ${e[1]}`)))
       }
     })
+ 
   }
     return (
       <div className="App">
@@ -39,7 +41,7 @@ function ReviewProducts ({addReview, userId}) {
       <Form onSubmit={onSubmit}>
       
       <label>Write Review</label>
-      <textarea type='text' rows='10' cols='100' name='comments' value={formData.comments} onChange={handleChange} />
+      <textarea type='text' name='comments' cols='1000' rows='15'  value={formData.comments} onChange={handleChange} />
       <input type='submit' value='Submit Review' />
     </Form>
     {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
@@ -58,12 +60,19 @@ function ReviewProducts ({addReview, userId}) {
   font-size:30px;
   input[type=submit]{
     background-color:#42ddf5;
-    color: white;
+    color: black;
     height:40px;
     font-family:Arial;
     font-size:30px;
     margin-top:10px;
     margin-bottom:10px;
   }
+
+  .sub:hover {
+    box-shadow: 0 0 10px #0099ff;
+    font-weight: bold;
+    color: black;
+    
+}
   `
 

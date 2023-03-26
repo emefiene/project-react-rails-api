@@ -1,4 +1,5 @@
 import React, { useState} from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 function ProductionForm({addProduction}) {
@@ -11,6 +12,8 @@ function ProductionForm({addProduction}) {
   })
 
   const [errors, setErrors] = useState([])
+  const {id} = useParams()
+  const history = useHistory()
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -28,6 +31,7 @@ function ProductionForm({addProduction}) {
     .then(res => {
       if(res.ok){
         res.json().then(addProduction)
+        history.push("/")
       } else {
         //Display errors
         res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
@@ -71,7 +75,7 @@ function ProductionForm({addProduction}) {
   font-size:30px;
   input[type=submit]{
     background-color:#42ddf5;
-    color: white;
+    color: black;
     height:40px;
     font-family:Arial;
     font-size:30px;

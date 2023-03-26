@@ -23,7 +23,7 @@ class ProductionsController < ApplicationController
     
         def destroy
             p = Production.find(params[:id])
-            p.destroy.all
+            p.destroy
             head :no_content
         end
     

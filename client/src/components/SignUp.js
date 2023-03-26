@@ -2,12 +2,15 @@ import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 
-function SignUp() {
+function SignUp({addUser}) {
     const [formData, setFormData] = useState({
         name:'',
         email:'',
         password:'',
-        password_confirmation: ''
+        password_confirmation: '',
+        age: "",
+        address: "",
+        image: ""
     })
     const [errors, setErrors] = useState([])
     const history = useHistory()
@@ -33,9 +36,8 @@ function SignUp() {
         })
         .then(res => {
             if(res.ok){
-                res.json().then(user => {
-                    history.push(`/users/${user.id}`)
-                })
+                res.json().then(addUser)
+                history.push("/login")
             }else {
                 res.json().then(json => setErrors(Object.entries(json.errors)))
             }
@@ -100,7 +102,7 @@ const Form = styled.form`
   font-size:30px;
   input[type=submit]{
     background-color:#42ddf5;
-    color: white;
+    color: black;
     height:40px;
     font-family:Arial;
     font-size:30px;
