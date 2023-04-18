@@ -7,8 +7,7 @@ function EditForm({editProduction}) {
     image:'',
     description:'',
     price:'',
-    quantity:'',
-    rating:''
+    quantity:''
   })
   const [errors, setErrors] = useState([])
   const history = useHistory()
@@ -58,9 +57,6 @@ function EditForm({editProduction}) {
       
         <label>Quantity</label>
         <input type='number' name='quantity' value={formData.quantity} onChange={handleChange} />
-        
-        <label>Rating</label>
-        <input type='number' name='rating' value={formData.rating} onChange={handleChange} />
       
         <input type='submit' value='Update Production' />
       </Form>

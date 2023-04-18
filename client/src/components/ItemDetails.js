@@ -5,9 +5,8 @@
 function ItemDetail({deleteProduction}) {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
-  const [view, setView] = useState()
   const [errors, setErrors] = useState(false)
-  const {id, description, image, price, rating, quantity, reviews, users} = data
+  const {id, description, image, price, quantity, reviews, users} = data
   console.log(id)
   const params = useParams()
   const history = useHistory()
@@ -18,18 +17,15 @@ function ItemDetail({deleteProduction}) {
       if(res.ok){
         res.json().then(data => {
           setData(data)
-          // data.map(res => setView(res))
           setLoading(false)
         })
       } else {
-        // console.log('error')
         res.json().then(data => setErrors(data.error))
       }
     })
   },[])
   
   function handleDelete(){
-    //DELETE to `/productions/${params.id}`
     fetch(`/productions/${params.id}`,{
       method:'DELETE',
       headers: {'Content-Type': 'application/json'}
@@ -49,12 +45,11 @@ function ItemDetail({deleteProduction}) {
   if(errors) return <h1>{errors}</h1>
 
 const reviewLength = reviews.map((item) => (
-    <li >
-     {item.name} : {item.comments} 
-    </li>
+    item.comments
+    
   ));
 const itemList = reviews.map((item) => (
-  <li >
+  <li style={{width: 1700, height: 70}}>
    {item.name} : {item.comments} 
   </li>
 ));
@@ -64,14 +59,15 @@ const itemList = reviews.map((item) => (
           <div className='wrapper'>
             <div>
             <hr></hr>
+            <p style={{color: "blue"}}>Rating:{reviewLength.length}</p>
               <img style={{ width: 550}} src={image}/>
               <h3>Description:</h3>
-              <p>{description}</p>
+              <h4>{description}</h4>
               <h3>Price:</h3>
               <p>{price}</p>
               <h3>Quantity:</h3>
               <p  >{quantity}</p>
-              <p>Rating:{reviewLength.length}</p>
+              
               <Link to={`/reviews/${data.id}`} > <h3>****** Write Review ******</h3> </Link>
               <hr></hr>
               

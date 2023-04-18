@@ -7,8 +7,7 @@ function ProductionForm({addProduction}) {
     image:'',
     description:'',
     price:'',
-    quantity:'',
-    rating:''
+    quantity:''
   })
 
   const [errors, setErrors] = useState([])
@@ -53,9 +52,6 @@ function ProductionForm({addProduction}) {
     
       <label>Quantity</label>
       <input type='number' name='quantity' value={formData.quantity} onChange={handleChange} />
-      
-      <label>Rating</label>
-      <input type='number' name='rating' value={formData.rating} onChange={handleChange} />
     
       <input type='submit' value='Update Production' />
     </Form>

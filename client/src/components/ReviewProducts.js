@@ -26,7 +26,7 @@ console.log("USER", currentUser)
     })
     .then(res => {
       if(res.ok){
-        res.json().then(addReview)
+        res.json().then()
         history.push(`/productions/${params.id}`)
       } else {
         //Display errors

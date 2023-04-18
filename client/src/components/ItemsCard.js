@@ -2,13 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link , useParams} from 'react-router-dom';
 
-const ItemsCard = ({dataObj:{image,description,rating,price,quantity,reviews},dataObj}) => {
+const ItemsCard = ({dataObj:{image,description,price,quantity,reviews},dataObj}) => {
 console.log(dataObj)
  
 const reviewLength = reviews.map((item) => (
-  <li >
-   {item.name} : {item.comments} 
-  </li>
+   item.comments
+  
 ));
 
   return (
@@ -19,7 +18,7 @@ const reviewLength = reviews.map((item) => (
         padding: "15px",
         marging: "10px", marginRight: "2px"}} src={image} alt="img"/> 
        </Link>
-       <h1>{description}</h1>
+       <p style={{width: 400, height: 50}}>{description}</p>
        <h3> ${price}</h3>
        <h3>Quantity : {quantity}</h3>
        <Link to={`/productions/${dataObj.id}`} > Rating :{reviewLength.length}</Link>

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
 
  
 
-   before_action :authorized_user, only: [:create]
+   before_action :authorized_user
   
 
     def current_user
