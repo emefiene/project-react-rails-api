@@ -11,29 +11,17 @@ class ReviewsController < ApplicationController
           render json: review, includes: :users, status: :ok
       end
   
-      def create
-         review = Review.create!(params_review)
-         render json: review, status: :created
+      def create 
+         @review = current_user.reviews.create(params_review)
+         render json: @review, status: :created   
+            
       end
-  
-      def update
-         review = Review.find(params[:id])
-         review.update!(params_review)
-         render json: review, status: :accepted
-      end
-  
-      def destroy
-          review = Review.find(params[:id])
-          head :no_content
-      end
-    
-
   
   
       private
   
       def params_review
-         params.permit(:name, :comments, :production_id, :user_id)
+         params.permit(:comments, :name, :production_id)
       end
   
 end

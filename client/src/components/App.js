@@ -41,8 +41,6 @@ function App() {
   },[])
    
 
-  console.log("current", currentUser)
-
   
    const fetchProduction = () => {
      fetch('/productions')

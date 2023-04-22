@@ -85,7 +85,7 @@ const itemList = reviews.map((item) => (
       <button onClick={() => handleDelete(data)}>Delete Production</button>
       
       </div>
-    )
+    ) 
   }
 
   export default ItemDetail

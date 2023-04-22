@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :members, only: [:index, :show, :create]
-  resources :reviews, only: [:index, :show, :create, :update, :destroy]
+  resources :reviews, only: [:index, :show, :create]
   resources :users, only: [:index, :show, :create, :update, :destroy]
   resources :productions, only: [:index, :show, :create, :update, :destroy]
   # Routing logic: fallback requests for React Router.
@@ -13,8 +12,6 @@ Rails.application.routes.draw do
   get '/authorized_user', to: 'users#show'
   
   get '/dynamic/:id', to: 'users#show'
-
-  get '/allUsers', to: 'users#index'
   
   delete '/logout', to: 'sessions#destroy'
 end

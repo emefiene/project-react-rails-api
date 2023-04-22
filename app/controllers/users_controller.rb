@@ -1,7 +1,9 @@
 
 class UsersController < ApplicationController
 
-   skip_before_action :authorized_user, only: [:create]
+   # skip_before_action :authorized_user, only: [:create]
+   
+   before_action :authorized_user, only: [:create]
    
    
  def index
@@ -18,11 +20,7 @@ class UsersController < ApplicationController
       render json: current_user, status: :ok
   end
   
-  def allUsers
-      
 
-     render json: User.all,  status: :ok
-  end
 
   def dynamic
       user = User.find(params[:id])

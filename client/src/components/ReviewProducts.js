@@ -22,7 +22,7 @@ console.log("USER", currentUser)
     fetch('/reviews',{
       method:'POST',
       headers: {'Content-Type': 'application/json'},
-      body:JSON.stringify({name:currentUser.name, ...formData, production_id:params.id, user_id:currentUser.id})
+      body:JSON.stringify({name:currentUser.name, ...formData, production_id:params.id})
     })
     .then(res => {
       if(res.ok){
@@ -30,7 +30,7 @@ console.log("USER", currentUser)
         history.push(`/productions/${params.id}`)
       } else {
         //Display errors
-        res.json().then(data => setErrors(Object.entries(data.error).map(e => `${e[0]} ${e[1]}`)))
+        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
       }
     })
  
