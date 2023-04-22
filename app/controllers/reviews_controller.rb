@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+
+      skip_before_action :authorized_user, only: [:index, :show]
  
     def index
         review = Review.all

@@ -1,6 +1,6 @@
 class ProductionsController < ApplicationController
 
-        before_action :authorized_user, only: [:create]
+   skip_before_action :authorized_user, only: [:index, :show]
 
         def index
           render json: Production.all,  status: :ok

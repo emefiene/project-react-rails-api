@@ -27,8 +27,8 @@ function Login({updateUser}) {
         })
         .then(res => {
             if(res.ok){
-                res.json().then(data => {
-                    updateUser(data)
+                res.json().then(user => {
+                    updateUser(user)
                     history.push(`/users/${user.id}`)
                 })
             }else {

@@ -30,7 +30,7 @@ console.log("USER", currentUser)
         history.push(`/productions/${params.id}`)
       } else {
         //Display errors
-        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+        res.json().then(data => setErrors(Object.entries(data.error).map(e => `${e[0]} ${e[1]}`)))
       }
     })
  

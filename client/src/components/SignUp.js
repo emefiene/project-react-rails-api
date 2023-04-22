@@ -87,7 +87,7 @@ function SignUp({addUser}) {
        
         <input type='submit' value='Sign up!' />
       </Form>
-      {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
+      {errors?errors.map(e => <div style={{textAlign: "center", color:"red"}}>{e[0]+': ' + e[1]}</div>):null}
         </div>
     )
 }

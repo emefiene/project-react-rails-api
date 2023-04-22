@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 import {useParams, useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 
-const Users = ({currentUser}) => {
+const Users = ({currentUser, updateUser}) => {
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
     const [errors, setErrors] = useState(false)
     const [showResults, setShowResults] = useState(false)
+
     const onClick = () => setShowResults(true)
 
-    const {productions} =  currentUser
     const params = useParams()
     const {id} = params
     const history = useHistory()
@@ -28,9 +28,10 @@ const Users = ({currentUser}) => {
         })
        
     },[])
-
+    
+    
     const Results = () => {
-       return productions.map(res => <li>{res.description}</li>)
+       return user.productions.map(res => <li>{res.description}</li>)
     }
     
 
