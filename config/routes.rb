@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :reviews, only: [:index, :show, :create]
+  resources :reviews, only: [:index, :show, :create, :destroy]
   resources :users, only: [:index, :show, :create, :update, :destroy]
   resources :productions, only: [:index, :show, :create, :update, :destroy]
   # Routing logic: fallback requests for React Router.
@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get '/dynamic/:id', to: 'users#show'
   
   delete '/logout', to: 'sessions#destroy'
+
 end
-                                                                                                                                                                                                                                                                                                              
+               

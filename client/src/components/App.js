@@ -22,7 +22,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState(false)
   const [userList, setUserList] = useState([])
   const [items, setItems] = useState([])
+  const [reviewList, setReviewList] = useState([])
   const [loading, setLoading] = useState(true)
+  const [render, setRender] = useState()
 
 
   useEffect(() => {
@@ -46,9 +48,12 @@ function App() {
      fetch('/productions')
      .then(res => {
       if(res.ok){
-        res.json().then(setData)
+        res.json().then(data => {
+          setData(data) 
+         setReviewList( data)
+        })
       }
-     }, [])
+     }, [render,reviewList, data])
    }
 
  
@@ -92,6 +97,11 @@ function App() {
      }
     })
   })
+
+  const addNewReviewlist = (patient) => setReviewList(current =>
+    setRender( [...current, patient])
+    
+   )
   
   const updateUser = (user) => setCurrentUser(user)
 
@@ -99,6 +109,8 @@ function App() {
   const deleteProduction = (id) => setData(current => current.filter(p => p.id !== id)) 
 
   const deleteUser = (id) => setUserList(current => current.filter(p => p.id !== id)) 
+
+  const deleteRev = (id) => setUserList(current => current.filter(p => p.id !== id)) 
 
   const handleSearch = (e) => {
     const filterSearch = items.filter(itemObj => {
@@ -120,7 +132,7 @@ function App() {
         
         <SignUp  addUser={addUser}/> === null
         : 
-       <Route path='/users/new'>
+       <Route path='/users'>
        <SignUp  addUser={addUser}/>
        </Route>
       
@@ -137,7 +149,7 @@ function App() {
         <EditForm editProduction={editProduction} />
       </Route>
       <Route path='/productions/:id'>
-          <ItemDetails deleteProduction={deleteProduction} />
+          <ItemDetails deleteRev={deleteRev} deleteProduction={deleteProduction} />
       </Route>
      
       <Route path='/users/:id'>
@@ -147,7 +159,7 @@ function App() {
         <Login updateUser={updateUser}/>
       </Route>
       <Route path= '/reviews/:id'>
-      <ReviewProducts currentUser={currentUser} /> 
+      <ReviewProducts addNewReviewlist={addNewReviewlist} currentUser={currentUser} /> 
     </Route>
     <Route  path='/user/:id/edit'>
     <EditUser updateUserInfor={updateUserInfor} currentUser={currentUser} />
@@ -179,3 +191,8 @@ const GlobalStyle = createGlobalStyle`
     
     `
 
+
+
+
+
+  

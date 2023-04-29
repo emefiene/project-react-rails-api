@@ -14,12 +14,12 @@ class ReviewsController < ApplicationController
       end
   
       def create 
-         @review = current_user.reviews.create(params_review)
+         @review = current_user.reviews.create!(params_review)
          render json: @review, status: :created   
             
       end
-  
-  
+
+   
       private
   
       def params_review

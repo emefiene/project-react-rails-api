@@ -29,7 +29,7 @@ const Navbar = ({updateUser}) => {
       <ul>
       <li onClick={() => setMenu(!menu)}>x</li>
     <li><Link to="/"><h2>Home</h2></Link></li>
-    <li><Link to='/users/new'>Sign Up</Link></li>
+    <li><Link to='/users'>Sign Up</Link></li>
     <li><Link to='/users'>View All Registered users</Link></li>
     <li><Link to='/productions/new'>New Production</Link></li>
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-function ReviewProducts ({addReview, currentUser}) {
+function ReviewProducts ({addNewReviewlist, currentUser}) {
 console.log("USER", currentUser)
   const params = useParams()
   const history = useHistory()
@@ -26,11 +26,11 @@ console.log("USER", currentUser)
     })
     .then(res => {
       if(res.ok){
-        res.json().then()
+        res.json().then(data => addNewReviewlist(data))
         history.push(`/productions/${params.id}`)
       } else {
         //Display errors
-        res.json().then(data => setErrors(Object.entries(data.error).map(e => `${e[0]} ${e[1]}`)))
+        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
       }
     })
  

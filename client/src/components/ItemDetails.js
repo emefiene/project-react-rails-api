@@ -2,7 +2,7 @@
  import {useEffect, useState} from 'react'
 
 
-function ItemDetail({deleteProduction}) {
+function ItemDetail({deleteProduction, deleteRev}) {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
   const [errors, setErrors] = useState(false)
@@ -54,6 +54,7 @@ const itemList = reviews.map((item) => (
   </li>
 ));
 
+
   return (
       <div style={{ marginLeft: "20px"}}>
           <div className='wrapper'>
@@ -70,9 +71,10 @@ const itemList = reviews.map((item) => (
               
               <Link to={`/reviews/${data.id}`} > <h3>****** Write Review ******</h3> </Link>
               <hr></hr>
+    
               
-              <h3>Reviews</h3>
               <hr></hr>
+              <h2>Reviews</h2>
               
               <h3>{itemList}</h3>
               

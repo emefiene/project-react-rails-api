@@ -5,11 +5,6 @@ import { Link , useParams} from 'react-router-dom';
 const ItemsCard = ({dataObj:{image,description,price,quantity,reviews},dataObj}) => {
 console.log(dataObj)
  
-const reviewLength = reviews.map((item) => (
-   item.comments
-  
-));
-
   return (
     <Card style={{ marginLeft: "20px"}}>
        <Link to={`/productions/${dataObj.id}`} > 
@@ -21,7 +16,7 @@ const reviewLength = reviews.map((item) => (
        <p style={{width: 400, height: 50}}>{description}</p>
        <h3> ${price}</h3>
        <h3>Quantity : {quantity}</h3>
-       <Link to={`/productions/${dataObj.id}`} > Rating :{reviewLength.length}</Link>
+    
     </Card>
   )
 }
