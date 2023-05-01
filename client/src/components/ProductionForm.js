@@ -53,7 +53,7 @@ function ProductionForm({addProduction}) {
       <label>Quantity</label>
       <input type='number' name='quantity' value={formData.quantity} onChange={handleChange} />
     
-      <input type='submit' value='Update Production' />
+      <input type='submit' value='Create Production' />
     </Form>
     {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
       </div>

@@ -24,7 +24,7 @@ function App() {
   const [items, setItems] = useState([])
   const [reviewList, setReviewList] = useState([])
   const [loading, setLoading] = useState(true)
-  const [render, setRender] = useState()
+
 
 
   useEffect(() => {
@@ -53,7 +53,7 @@ function App() {
          setReviewList( data)
         })
       }
-     }, [render,reviewList, data])
+     }, [])
    }
 
  
@@ -98,10 +98,15 @@ function App() {
     })
   })
 
-  const addNewReviewlist = (patient) => setReviewList(current =>
-    setRender( [...current, patient])
-    
-   )
+  const addNewReviewlist = (revInfor) => setReviewList(current => {
+    return current.map(data => {
+     if(data.id === revInfor.id){
+       return revInfor
+     } else {
+       return data
+     }
+    })
+  })
   
   const updateUser = (user) => setCurrentUser(user)
 
