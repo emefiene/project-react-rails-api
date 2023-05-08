@@ -17,7 +17,7 @@ function EditUser({updateUserInfor}) {
   const history = useHistory()
   const {id} = useParams()
   useEffect(() => {
-    fetch(`/dynamic/${id}`)
+    fetch(`/users/${id}`)
     .then(res => res.json())
     .then(setFormData)
   },[])

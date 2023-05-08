@@ -1,10 +1,10 @@
 import React from 'react'
 import UsersCard from './UsersCard'
 
-const UsersContainer = ({userList,deleteUser}) => {
+const UsersContainer = ({userList,deleteUser,updateUser}) => {
   return (
     <div>
-      {userList.map(( userObj, index) => <UsersCard userObj={userObj} deleteUser={deleteUser} key={index}/>)}
+      {userList.map(( userObj, index) => <UsersCard userObj={userObj} updateUser={updateUser} deleteUser={deleteUser} key={index}/>)}
     </div>
   )
 }

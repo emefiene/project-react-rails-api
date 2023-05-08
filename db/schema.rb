@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 2023_02_27_002729) do
     t.string "description"
     t.string "image"
     t.integer "price"
-    t.integer "rating"
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

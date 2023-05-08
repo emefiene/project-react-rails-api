@@ -11,9 +11,8 @@ Rails.application.routes.draw do
 
   get '/authorized_user', to: 'users#show'
   
-  get '/dynamic/:id', to: 'users#show'
-  
   delete '/logout', to: 'sessions#destroy'
+
 
 end
                

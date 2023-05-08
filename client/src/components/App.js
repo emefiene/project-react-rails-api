@@ -26,7 +26,6 @@ function App() {
   const [loading, setLoading] = useState(true)
 
 
-
   useEffect(() => {
     fetch("/authorized_user")
     .then((res) => {
@@ -113,9 +112,7 @@ function App() {
   
   const deleteProduction = (id) => setData(current => current.filter(p => p.id !== id)) 
 
-  const deleteUser = (id) => setUserList(current => current.filter(p => p.id !== id)) 
-
-  const deleteRev = (id) => setUserList(current => current.filter(p => p.id !== id)) 
+  const deleteUser = (id) => setUserList(current => current.filter(p => p.id !== id))
 
   const handleSearch = (e) => {
     const filterSearch = items.filter(itemObj => {
@@ -140,7 +137,6 @@ function App() {
        <Route path='/users'>
        <SignUp  addUser={addUser}/>
        </Route>
-      
       }
       { !currentUser? <Login error={'please login'} updateUser={updateUser} /> :
       <Switch>
@@ -154,7 +150,7 @@ function App() {
         <EditForm editProduction={editProduction} />
       </Route>
       <Route path='/productions/:id'>
-          <ItemDetails deleteRev={deleteRev} deleteProduction={deleteProduction} />
+          <ItemDetails  deleteProduction={deleteProduction} />
       </Route>
      
       <Route path='/users/:id'>
@@ -172,7 +168,7 @@ function App() {
 
   <Route path="/users">
   <Search handleSearch={handleSearch}/>
-  <UsersContainer deleteUser={deleteUser} userList={userList}
+  <UsersContainer updateUser={updateUser} deleteUser={deleteUser} userList={userList}
   />
   
 </Route>

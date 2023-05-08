@@ -1,6 +1,6 @@
 class ProductionsController < ApplicationController
 
-   skip_before_action :authorized_user, only: [:index, :show]
+   skip_before_action :authorized_user, only: [:index, :show, :names]
 
         def index
           render json: Production.all,  status: :ok
@@ -29,13 +29,12 @@ class ProductionsController < ApplicationController
             p.destroy
             head :no_content
         end
-    
-        
-    
+       
+
         private
     
         def params_production
-           params.permit(:description, :image, :price, :rating, :quantity)
+           params.permit(:description, :image, :price, :quantity)
         end
     
 end

@@ -45,7 +45,7 @@ const Users = ({currentUser, updateUser}) => {
             <img style={{ width: 550}} src={user.image} alt="logo" />
             <h3>Age: {user.age}</h3>
             <h3>Email: {user.email}</h3>
-            <h3>Address:c{user.address}</h3>
+            <h3>Address:{user.address}</h3>
             <button onClick={onClick} style={{textAlign: "center", color:"blue"}}> View Your Productions</button>
              {showResults ? <Results /> : null }
             
